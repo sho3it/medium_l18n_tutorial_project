@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { IntlProvider } from "react-intl";
+
+import FirstComponent from "./first-component";
+
+import "./App.css";
+
+import translationsDE from "./translationsDE.json";
+import translationsEN from "./translationsEN.json";
 
 function App() {
+  const [locale, setLocale] = useState("de");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <IntlProvider
+      locale={locale}
+      messages={locale === "en" ? translationsEN : translationsDE}
+      textComponent='span'
+    >
+      <FirstComponent locale={e => setLocale(e)} />
+    </IntlProvider>
   );
 }
 
